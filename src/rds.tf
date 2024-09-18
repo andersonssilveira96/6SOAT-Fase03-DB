@@ -1,4 +1,19 @@
+# Data source para verificar se o Security Group já existe
+data "aws_security_group" "existing_sg" {
+  filter {
+    name   = "group-name"
+    values = ["db_sg"]
+  }
+}
+
+# Variável local para verificar se o Security Group já existe
+locals {
+  sg_exists = length(data.aws_security_group.existing_sg.id) > 0
+}
+
+# Recurso para criar o Security Group se ele não existir
 resource "aws_security_group" "db_sg" {
+  count = local.sg_exists ? 0 : 1
   name = "db_sg"
   ingress {
     from_port   = 0
