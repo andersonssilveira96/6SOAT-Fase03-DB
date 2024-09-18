@@ -57,7 +57,7 @@ jobs:
     name: Terraform Deploy
 
     needs: 
-      - tf-test
+      - tf-plan
 
     if: github.ref == 'refs/heads/master' 
 
