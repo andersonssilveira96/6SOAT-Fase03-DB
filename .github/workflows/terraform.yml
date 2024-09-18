@@ -1,5 +1,4 @@
 name: Deploy RDS Postgres Database 
-
 on:
   pull_request:
     types:
