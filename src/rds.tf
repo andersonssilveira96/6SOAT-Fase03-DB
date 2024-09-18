@@ -1,5 +1,5 @@
 resource "aws_security_group" "db_sg" {
-  name_prefix = "db_sg-"
+  name = "db_sg"
   ingress {
     from_port   = 0
     to_port     = 5432
