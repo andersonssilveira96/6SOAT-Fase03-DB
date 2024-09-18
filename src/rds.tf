@@ -4,6 +4,11 @@ data "aws_security_group" "existing_sg" {
     name   = "group-name"
     values = ["db_sg"]
   }
+  
+  # Adicionando um ignore_errors para evitar falhas se o SG não existir
+  lifecycle {
+    ignore_errors = true
+  }
 }
 
 # Variável local para verificar se o Security Group já existe
