@@ -2,14 +2,14 @@ variable "region" {
   default  = "us-east-1"
 }
 
-variable "db-username" {
+variable "db_username" {
   default  = "postgres"
 }
 
-variable "db-password" {
+variable "db_password" {
   default = "postgres"
 }
 
-variable "db-name" {
+variable "db_name" {
   default = "techchallenge"
 }
