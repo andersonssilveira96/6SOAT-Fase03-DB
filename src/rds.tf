@@ -8,7 +8,19 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
+# Data source para verificar se o DB já existe
+data "aws_db_instance" "existing_db" {
+  db_instance_identifier = "techchallenge"
+}
+
+# Variavel local para verificar se o DB já existe
+locals {
+  db_exists = length(data.aws_db_instance.existing_db.id) > 0
+}
+
 resource "aws_db_instance" "db_sg" {
+  count = local.db_exists ? 0 : 1
+  
   engine                 = "postgres"
   engine_version         = "14"
   db_name                = var.db-name
