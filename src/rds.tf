@@ -3,17 +3,12 @@ data "aws_security_group" "existing_sg" {
   filter {
     name   = "group-name"
     values = ["db_sg"]
-  }
-  
-  # Adicionando um ignore_errors para evitar falhas se o SG não existir
-  lifecycle {
-    ignore_errors = true
-  }
+  }   
 }
 
 # Variável local para verificar se o Security Group já existe
 locals {
-  sg_exists = length(data.aws_security_group.existing_sg.id) > 0
+  sg_exists = try(length(data.aws_security_group.existing_sg.id) > 0, false)
 }
 
 # Recurso para criar o Security Group se ele não existir
@@ -35,7 +30,7 @@ data "aws_db_instance" "existing_db" {
 
 # Variavel local para verificar se o DB já existe
 locals {
-  db_exists = length(data.aws_db_instance.existing_db.id) > 0
+  db_exists = try(length(data.aws_db_instance.existing_db.id) > 0, false)
 }
 
 resource "aws_db_instance" "db_sg" {
