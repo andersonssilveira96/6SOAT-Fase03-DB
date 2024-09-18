@@ -8,10 +8,7 @@ on:
 jobs:
         
   tf-deploy:
-    name: Terraform Deploy
-
-    needs: 
-      - tf-plan
+    name: Terraform Deploy  
 
     if: github.ref == 'refs/heads/master' 
 
