@@ -20,7 +20,11 @@ resource "aws_db_instance" "db_sg" {
   password               = var.db-password
   vpc_security_group_ids = [aws_security_group.db_sg.id]
   skip_final_snapshot    = true
-
+  
+  lifecycle {
+    ignore_changes       = [var.db-name]
+  }
+  
   tags = {
     Name = var.db-name
   }
