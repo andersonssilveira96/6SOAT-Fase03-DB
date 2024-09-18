@@ -22,7 +22,7 @@ resource "aws_db_instance" "db_sg" {
   skip_final_snapshot    = true
   
   lifecycle {
-    ignore_changes       = [var.db-name]
+    ignore_changes       = [db_name]
   }
   
   tags = {
