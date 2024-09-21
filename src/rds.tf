@@ -1,19 +1,5 @@
-# Data source para verificar se o Security Group já existe
-data "aws_security_group" "existing_sg" {
-  filter {
-    name   = "group-name"
-    values = ["db_sg"]
-  }   
-}
-
-# Variável local para verificar se o Security Group já existe
-locals {
-  sg_exists = try(length(data.aws_security_group.existing_sg.id) > 0, false)
-}
-
-# Recurso para criar o Security Group se ele não existir
-resource "aws_security_group" "db_sg" {
-  count = local.sg_exists ? 0 : 1
+# Recurso para criar o Security Group 
+resource "aws_security_group" "db_sg" {  
   name = "db_sg"
   ingress {
     from_port   = 0
@@ -23,18 +9,7 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
-# Data source para verificar se o DB já existe
-data "aws_db_instance" "existing_db" {
-  db_instance_identifier = "techchallenge"
-}
-
-# Variavel local para verificar se o DB já existe
-locals {
-  db_exists = try(length(data.aws_db_instance.existing_db.id) > 0, false)
-}
-
 resource "aws_db_instance" "db_sg" {
-  count = local.db_exists ? 0 : 1
 
   engine                 = "postgres"
   engine_version         = "14"
@@ -45,7 +20,7 @@ resource "aws_db_instance" "db_sg" {
   publicly_accessible    = true
   username               = var.db_username
   password               = var.db_password
-  vpc_security_group_ids = local.sg_exists ? [data.aws_security_group.existing_sg.id] : [aws_security_group.db_sg[0].id]
+  vpc_security_group_ids = aws_security_group.db_sg[0].id
   skip_final_snapshot    = true
 
   lifecycle {
