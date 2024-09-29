@@ -5,7 +5,7 @@ Repositório para o Banco de dados do Tech Challenge - Fase 03 - 6SOAT
 ![image](https://github.com/user-attachments/assets/dc623ee4-6b69-459f-b39e-38c67031033c)
 
 # Motivações
-Nesse tópico falaremos sobre as motivações para a escolha da stack do banco de dados.
+Nesse tópico falarei sobre as motivações para a escolha da stack do banco de dados.
 
 ## Postgres
 Optei pelo Postgres por atender perfeitamente a necessidade de negócio, visto que atendente a quantidade de requests necessárias para manter a aplicação funcionando perfeitamente, além de possuir opções para escalabilidade suportando alto volume de transações.
