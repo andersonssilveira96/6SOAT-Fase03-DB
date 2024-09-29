@@ -1,8 +1,10 @@
 name: Deploy RDS Postgres Database 
 on:
-  push: 
+ pull_request:
+    types:
+      - closed
     branches:
-      - master  
+      - master 
 jobs:
         
   tf-deploy:
